@@ -1,0 +1,87 @@
+@mixin transition($in) {
+	transition:$in;
+	-webkit-transition:$in;
+	-moz-transition:$in;
+	-o-transition:$in;
+	-ms-transition:$in;
+}
+
+
+.header {
+    font-family: 'Montserrat', sans-serif;
+    height: 42px;
+    margin-top: 20px;
+
+    img {
+        margin-right: 20px;
+    }
+
+    a {
+        color: #FFFFFF;
+        font-style: normal;
+        font-weight: normal;
+        font-size: 14px;
+        line-height: 18px;
+        text-decoration: none;
+    }
+
+    a:nth-child(2) { //Inicio
+        font-weight: bold;
+        margin-right: 17px;
+    }
+
+    a:nth-child(3) { //Series
+        margin-right: 17px;
+    }
+
+    a:nth-child(4) { //Películas
+        margin-right: 16px;
+    }
+
+    a:nth-child(5) { //Agregados recientemente
+        margin-right: 13px;
+    }
+
+    a:nth-child(6) { //Mi Lista
+        margin-right: 18px;
+    }
+
+    a:hover {
+        opacity: 0.7;
+    }
+
+    .header-plus-icon {
+        vertical-align: bottom;
+        margin: 0px 11.5px;
+		@include transition(all 0.3s ease);
+    }
+
+    button {
+        background-color: #FF0000;
+        color: #FFFFFF;
+        font-size: 16px;
+        line-height: 19px;
+        border: none;
+        height: 40px;
+        border-radius: 30px;
+        font-family: inherit;
+        overflow: hidden;
+        cursor: pointer;
+        position: relative;
+        padding: 0px;
+
+        span {
+            position: absolute;
+            white-space: nowrap;
+            top: 10px;
+            left: 40px;
+        }
+
+        &:hover {
+            img {
+                margin-right: 160px;
+            }
+        }
+    }
+
+}
