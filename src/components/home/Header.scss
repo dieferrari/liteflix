@@ -9,11 +9,13 @@ $primary-font: 'Montserrat';
 	-ms-transition:$in;
 }
 
-.header {
+.header-container {
     font-family: $primary-font;
     height: 42px;
     margin: 0px 165px;
     padding: 20px 0px;
+    display: flex;
+    justify-content: space-between;
 
     img {
         margin-right: 20px;
@@ -26,6 +28,7 @@ $primary-font: 'Montserrat';
         font-size: 14px;
         line-height: 18px;
         text-decoration: none;
+        align-self: center;
     }
 
     a:nth-child(2) { //Inicio
@@ -59,7 +62,7 @@ $primary-font: 'Montserrat';
 		@include transition(all 0.3s ease);
     }
 
-    button {
+    .header-add-button {
         background-color: $liteflix-red;
         color: #FFFFFF;
         font-size: 16px;
@@ -87,4 +90,77 @@ $primary-font: 'Montserrat';
         }
     }
 
+    .header-search-section {
+        height: 34px;
+        width: 18px;
+        margin-right: 15px;
+        overflow: hidden;
+        cursor: pointer;
+        @include transition(all 0.3s ease);
+    
+        &:hover {
+            width: 285px;
+            border-bottom: 1px solid #4A4A4A;
+        }
+    }
+
+    form {
+        padding-top: 12px;
+    }
+
+    label {
+        display: flex;
+
+        img {
+            margin-right: 8px;
+        }
+
+        input {
+            font-family: $primary-font;
+            width: 200px;
+            background-color: transparent;
+            border: none;
+            color: #4A4A4A;
+            font-size: 14px;
+            line-height: 18px;
+        
+            &:focus {
+                outline: none;
+            }
+        }
+    }
+
+    .header-secondary-container {
+        display: flex;
+
+        a {
+            font-weight: normal;
+        }
+
+        button {
+            width: fit-content;
+            height: fit-content;
+            margin-right: 20px;
+            align-self: center;
+            background-color: transparent;
+            padding: 0px;
+            border: none;
+            
+            img {
+                margin: 0px;
+                padding: 0px;
+            }
+        }
+    }
+    
+    .header-user-container {
+        display: flex;
+
+        img:first-child {
+            margin-right: 8px;
+        }
+        img:nth-child(2) {
+            margin: 0px;
+        }
+    }
 }
