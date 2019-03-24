@@ -132,6 +132,7 @@ $primary-font: 'Montserrat';
 
     .header-secondary-container {
         display: flex;
+        z-index: 1;
 
         a {
             font-weight: normal;
@@ -145,6 +146,10 @@ $primary-font: 'Montserrat';
             background-color: transparent;
             padding: 0px;
             border: none;
+
+            &:focus {
+                outline: none;
+            }
             
             img {
                 margin: 0px;
@@ -162,5 +167,13 @@ $primary-font: 'Montserrat';
         img:nth-child(2) {
             margin: 0px;
         }
+    }
+
+    .header-user-dropdown {
+        position: absolute;
+        right: 142px;
+        top: 7px;
+        margin-right: 0px;
+        transform: scale(1)
     }
 }

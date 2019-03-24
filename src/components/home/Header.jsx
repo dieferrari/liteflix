@@ -7,7 +7,13 @@ class Header extends Component {
         super(props);
         this.state = {
             searchValue: "",
+            showDropdown: false,
         }
+    }
+
+    handleUserDropdown(event) {
+        let dropdownNextState = !this.state.showDropdown
+        this.setState({ showDropdown: dropdownNextState})
     }
 
     render() {
@@ -40,11 +46,12 @@ class Header extends Component {
                     </button>
                     <div className="header-user-container">
                         <img src="../../../assets/user_icon_1.svg" alt="User icon"/>
-                        <button>
+                        <button onClick={this.handleUserDropdown.bind(this)}>
                             <img src="../../../assets/arrow_icon.svg" alt="Arrow icon"/> 
                         </button>
                     </div>
                 </div>
+                { this.state.showDropdown ? <img className="header-user-dropdown" src="../../../assets/dropdown.svg" alt="User Dropdown menu"/> : null }
             </div>
         )
     }
