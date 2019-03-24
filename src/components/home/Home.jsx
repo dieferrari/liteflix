@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import './Home.scss';
-import Header from './Header'; 
+import Header from './Header';
+import MainInfo from './MainInfo'; 
 
 import NOW_PLAYING_MOVIES from '../../../seed/now_playing';
 import UPCOMING_MOVIES from '../../../seed/upcoming';
@@ -8,19 +9,15 @@ import TOP_RATED_MOVIES from '../../../seed/top_rated';
 import POPULAR_MOVIES from '../../../seed/popular';
 import DRAMA_MOVIES from '../../../seed/drama';
 
-
-
-
-
 class Home extends Component {
     constructor(props) {
         super(props);
         this.state = {
-			nowPlayingMovies: {},
-			upcomingMovies: {},
-			topRatedMovies: {},
-			popularMovies: {},
-			dramaMovies: {},
+			nowPlayingMovies: [],
+			upcomingMovies: [],
+			topRatedMovies: [],
+			popularMovies: [],
+			dramaMovies: [],
 			mainCoverUrl: ''
         };
     }
@@ -49,9 +46,10 @@ class Home extends Component {
 
     render() {
         return (
-			<div>
+			<div className="app-container">
 				<div className="main-container" style={{ backgroundImage : `url(${this.state.mainCoverUrl})` }}>
 					<Header/>
+					<MainInfo mainMovieInfo={this.state.nowPlayingMovies[0]}/>
 				</div>
 			</div>
         )

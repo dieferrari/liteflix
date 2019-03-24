@@ -1,3 +1,6 @@
+$liteflix-red: #FF0000;
+$primary-font: 'Montserrat';
+
 @mixin transition($in) {
 	transition:$in;
 	-webkit-transition:$in;
@@ -6,11 +9,11 @@
 	-ms-transition:$in;
 }
 
-
 .header {
-    font-family: 'Montserrat', sans-serif;
+    font-family: $primary-font;
     height: 42px;
-    margin-top: 20px;
+    margin: 0px 165px;
+    padding: 20px 0px;
 
     img {
         margin-right: 20px;
@@ -57,7 +60,7 @@
     }
 
     button {
-        background-color: #FF0000;
+        background-color: $liteflix-red;
         color: #FFFFFF;
         font-size: 16px;
         line-height: 19px;
