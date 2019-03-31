@@ -27,7 +27,7 @@ class Header extends Component {
                     <a href="/agregados-recientemente">Agregados reciéntemente</a>
                     <a href="/mi-lista">Mi Lista</a>
                     <button className="header-add-button">
-                        <img className="header-plus-icon" src="../../../assets/plus_icon.svg" alt="Plus icon"/>
+                        <img className="header-plus-icon" src="../../../assets/plus_icon.svg" alt="Add icon"/>
                         <span>Agregar película</span>
                     </button>
                 </div>
@@ -47,7 +47,7 @@ class Header extends Component {
                     <div className="header-user-container">
                         <img src="../../../assets/user_icon_1.svg" alt="User icon"/>
                         <button onClick={this.handleUserDropdown.bind(this)}>
-                            <img src="../../../assets/arrow_icon.svg" alt="Arrow icon"/> 
+                            <img src="../../../assets/header_arrow_icon.svg" alt="Arrow icon"/> 
                         </button>
                     </div>
                 </div>

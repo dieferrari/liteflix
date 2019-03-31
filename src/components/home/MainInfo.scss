@@ -1,15 +1,15 @@
-$liteflix-red: #FF0000;
-$primary-font: 'Montserrat';
-$secondary-font: 'Roboto Slab';
+$liteflixRed: #FF0000;
+$primaryFont: 'Montserrat';
+$secondaryFont: 'Roboto Slab';
 
 .main-info {
     padding: 74px 164px;
-    font-family: $primary-font;
+    font-family: $primaryFont;
     font-style: normal;
 
     h1 {
         color: #FFFFFF;
-        font-family: $secondary-font;
+        font-family: $secondaryFont;
         font-size: 110px;
         line-height: 90px;
         width: 400px;
@@ -36,7 +36,7 @@ $secondary-font: 'Roboto Slab';
         margin-right: 30px;
         display: inline-flex;
         border: none;
-        font-family: $primary-font;
+        font-family: $primaryFont;
 
         span {
             color: #FFFFFF;

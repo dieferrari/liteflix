@@ -1,0 +1,229 @@
+$primaryFont: 'Montserrat';
+$secondaryFont: 'Roboto Slab';
+$duration: 450ms;
+$tileWidth: 204px;
+$tileHeight: 124px;
+$iconSize: 50px;
+$growFactor: 2.16;
+$moveLeft: -($tileWidth * ($growFactor - 1) / 2);
+$moveRight: $tileWidth * ($growFactor - 1);
+
+$tileWidthBig: 217px;
+$tileHeightBig: 434px;
+$growFactorBig: 1.15;
+$moveLeftBig: -($tileWidthBig * ($growFactorBig - 1) / 2);
+$moveRightBig: $tileWidthBig * ($growFactorBig - 1);
+
+///////// VER COMO HACER TODO IGUAL TANTO PARA LOS TILES NORMALES COMO PARA LOS BIG PERO QUE SOLO CAMBIE EL CONTENIDO DE SUS VARIABLES (CON MIXINS O FUNCIONES???)
+  
+.row {
+    overflow: scroll;
+    width: 100%;
+    display: contents; //Si saco esto se arregla un poco el tema de que el carousel sea enorme pero cuando hago hover en las imágenes no se ve más grande que el div
+}
+  
+
+.row-inner {
+    transition: $duration transform;
+    font-size: 0;
+    white-space: nowrap;
+    margin: 0 ($tileHeight / 2) 0 0;
+    padding-bottom: 10px;
+}
+
+.tile {
+    position: relative;
+    display: inline-block;
+    width: $tileWidth;
+    height: $tileHeight;
+    margin-right: 10px;
+    font-size: 20px;
+    cursor: pointer;
+    transition: $duration all;
+    transform-origin: center left;
+    color: #FFFFFF;
+}
+
+.tile-img {
+    width: $tileWidth;
+    height: $tileHeight;
+    object-fit: cover;
+}
+
+.tile-details {
+    position: absolute;
+    bottom: -1px;
+    left: 0;
+    right: 0;
+    top: 0;
+    opacity: 0;
+    background: linear-gradient(to top, rgba(0,0,0,1) 0%, rgba(0,0,0,0) 100%);
+    transition: $duration opacity;
+    max-width: 261px;
+    font-family:$primaryFont;
+    display: flex;
+
+
+    .tile:hover & {
+        opacity: 1;
+    }
+}
+
+.tile-description {
+    position: absolute;
+    bottom: 4px;
+    padding: 10px;
+    font-size: 7px;
+    font-weight: normal;
+
+    .tile-play-icon {
+        width: 16px;
+        height: 19px;
+    }    
+
+    .tile-description-title {
+        font-weight: bold;
+        font-size: 9px;
+    }
+
+    :nth-child(3) {
+        display: inline-flex;
+        flex-wrap: wrap;
+    }
+
+    .tile-adult-badge {
+        margin: 0 5px;
+        padding: 0 3px;
+        background-color: rgba(255, 255, 255, 0.2);
+        border-radius: 10px;
+    }
+
+}
+
+.tile-description-interactions {
+
+    display: flex;
+    align-self: center; 
+    position: relative;
+    left: 175px;
+    top: 40px;
+    width: 20px;
+    flex-wrap: wrap;
+
+    img {
+        width: 13px;
+        height: 13px;
+        padding-bottom: 4px;
+    }
+}
+
+.row-inner:hover {
+    transform: translate3d($moveLeft, 0, 0);
+}
+
+.row-inner:hover .tile {
+
+    &:hover {
+        transform: scale($growFactor);
+        opacity: 1;
+    }
+}
+
+.tile:hover ~ .tile {
+    transform: translate3d($moveRight, 0, 0);
+}
+
+.carousel-container {
+    max-width: calc(1440px - 164px);
+    position: relative;
+    left: 164px;
+    bottom: 100px; //--------------------> MODIFICAR SEGÚN VH ?
+    margin-bottom: 80px;
+
+    h4 {
+        color: #FFFFFF;
+        font-family:$primaryFont;
+        font-weight: bold;
+        font-size: 20px;
+        line-height: 24px;
+        margin: 20px 0px 10px 0px;
+    }
+
+    .liteflix-popular-title {
+        text-transform: uppercase;
+    }
+}
+
+.tile-arrow-down {
+    width: 20px;
+    align-self: flex-end;
+    position: relative;
+    left: 75px ;
+    padding-bottom: 2px;
+}
+
+//---------------- BIG TILES ----------------
+
+.tile-big {
+    width: $tileWidthBig;
+    height: $tileHeightBig;
+}
+
+.tile-img-big {
+    width: $tileWidthBig;
+    height: $tileHeightBig;
+}
+
+.row-inner-big:hover .tile-big {
+
+    &:hover {
+        transform: scale($growFactorBig);
+        opacity: 1;
+    }
+}
+
+.row-inner-big:hover {
+    transform: translate3d($moveLeftBig, 0, 0);
+}
+
+.row-inner-big:hover .tile-big {
+
+    &:hover {
+        transform: scale($growFactorBig);
+        opacity: 1;
+    }
+}
+
+.tile-big:hover ~ .tile-big {
+    transform: translate3d($moveRightBig, 0, 0);
+}
+
+.tile-description-big {
+    max-width: 150px;
+    font-size: 13px;
+    bottom: 18px;
+    
+    .tile-play-icon {
+        height: 40px;
+        width: 40px;
+    }
+
+    .tile-description-title {
+        font-size: 15px;
+        white-space: initial;
+    }
+}
+
+.tile-description-interactions-big {
+    top: 164px;
+
+    img {
+        width: 25px;
+        height: 25px;
+        padding-bottom: 6px;
+    }
+}
+
+.tile-arrow-down-big {
+    width: 37px;
+}

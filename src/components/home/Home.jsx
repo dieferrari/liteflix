@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import './Home.scss';
 import Header from './Header';
 import MainInfo from './MainInfo'; 
+import Carousel from './Carousel';
 
 import NOW_PLAYING_MOVIES from '../../../seed/now_playing';
 import UPCOMING_MOVIES from '../../../seed/upcoming';
@@ -47,10 +48,31 @@ class Home extends Component {
     render() {
         return (
 			<div className="app-container">
-				<div className="main-container" style={{ backgroundImage : `url(${this.state.mainCoverUrl})` }}>
+				<div className="main-container" style={{ backgroundImage: `url(${this.state.mainCoverUrl})` }}>
 					<Header/>
 					<MainInfo mainMovieInfo={this.state.nowPlayingMovies[0]}/>
 				</div>
+				<Carousel
+					sectionTitle={"Próximamente"}
+					data={this.state.upcomingMovies}
+					getImageUrl={this.getImageUrl.bind(this)}
+				/>
+				<Carousel
+					sectionTitle={"Mejores Rankeadas"}
+					data={this.state.topRatedMovies}
+					getImageUrl={this.getImageUrl.bind(this)}
+				/>
+				<Carousel
+					sectionTitle={"Populares de Liteflix"}
+					data={this.state.popularMovies}
+					getImageUrl={this.getImageUrl.bind(this)}
+					liteflixPopular={true}
+				/>
+				<Carousel
+					sectionTitle={"Drama"}
+					data={this.state.topRatedMovies}
+					getImageUrl={this.getImageUrl.bind(this)}
+				/>
 			</div>
         )
     }
