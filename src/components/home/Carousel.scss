@@ -139,6 +139,7 @@ $moveRightBig: $tileWidthBig * ($growFactorBig - 1);
     left: 164px;
     bottom: 100px; //--------------------> MODIFICAR SEGÚN VH ?
     margin-bottom: 80px;
+    overflow-x: scroll;
 
     h4 {
         color: #FFFFFF;

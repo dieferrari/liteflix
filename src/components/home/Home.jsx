@@ -28,6 +28,7 @@ class Home extends Component {
 	}
 	
 	getStartingData() {
+
 		this.setState({
 			nowPlayingMovies: NOW_PLAYING_MOVIES.results,
 			upcomingMovies: UPCOMING_MOVIES.results,
@@ -37,6 +38,11 @@ class Home extends Component {
 			mainCoverUrl: this.getImageUrl(NOW_PLAYING_MOVIES.results[0])
 		})
 	}
+
+	// fetchNowPlayingMovies(){
+	// 	fetch('https://localhost:3001/api/movies/now_playing')
+	// 	.then(response => response.json())
+	// }
 
 	getImageUrl(movie, type='backdrop', size= 'original') {
 		const base_url = 'https://image.tmdb.org/t/p/';
@@ -70,7 +76,7 @@ class Home extends Component {
 				/>
 				<Carousel
 					sectionTitle={"Drama"}
-					data={this.state.topRatedMovies}
+					data={this.state.dramaMovies}
 					getImageUrl={this.getImageUrl.bind(this)}
 				/>
 			</div>
