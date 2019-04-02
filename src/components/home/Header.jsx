@@ -26,7 +26,7 @@ class Header extends Component {
                     <a href="/peliculas">Películas</a>
                     <a href="/agregados-recientemente">Agregados reciéntemente</a>
                     <a href="/mi-lista">Mi Lista</a>
-                    <button className="header-add-button">
+                    <button className="header-add-button" onClick={this.props.openModalHandler}>
                         <img className="header-plus-icon" src="../../../assets/plus_icon.svg" alt="Add icon"/>
                         <span>Agregar película</span>
                     </button>

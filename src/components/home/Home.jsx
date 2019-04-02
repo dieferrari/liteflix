@@ -1,8 +1,10 @@
 import React, { Component } from 'react';
+
 import './Home.scss';
 import Header from './Header';
 import MainInfo from './MainInfo'; 
 import Carousel from './Carousel';
+import Modal from './Modal';
 
 import NOW_PLAYING_MOVIES from '../../../seed/now_playing';
 import UPCOMING_MOVIES from '../../../seed/upcoming';
@@ -19,7 +21,8 @@ class Home extends Component {
 			topRatedMovies: [],
 			popularMovies: [],
 			dramaMovies: [],
-			mainCoverUrl: ''
+			mainCoverUrl: '',
+			showModal: false,
         };
     }
 
@@ -35,7 +38,7 @@ class Home extends Component {
 			topRatedMovies: TOP_RATED_MOVIES.results,
 			popularMovies: POPULAR_MOVIES.results,
 			dramaMovies: DRAMA_MOVIES.results,
-			mainCoverUrl: this.getImageUrl(NOW_PLAYING_MOVIES.results[0])
+			mainCoverUrl: this.getImageUrl(NOW_PLAYING_MOVIES.results[0]),
 		})
 	}
 
@@ -51,12 +54,24 @@ class Home extends Component {
 		return base_url + size + img_path
 	}
 
+	openModalHandler() {
+		this.setState({showModal: true})
+	}
+
+	closeModalHandler() {
+		this.setState({showModal: false})
+	}
+
     render() {
         return (
 			<div className="app-container">
 				<div className="main-container" style={{ backgroundImage: `url(${this.state.mainCoverUrl})` }}>
-					<Header/>
+					<Header openModalHandler={this.openModalHandler.bind(this)}/>
 					<MainInfo mainMovieInfo={this.state.nowPlayingMovies[0]}/>
+					<Modal
+						showModal={this.state.showModal}
+						closeModalHandler={this.closeModalHandler.bind(this)}
+					/>
 				</div>
 				<Carousel
 					sectionTitle={"Próximamente"}
@@ -84,4 +99,4 @@ class Home extends Component {
     }
 }
 
-export default Home;
+export default Home
