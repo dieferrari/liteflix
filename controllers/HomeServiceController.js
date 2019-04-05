@@ -6,9 +6,23 @@ class HomeServiceController {
         const homeService = new HomeService()
         return homeService.getNowPlayingMovies()
         .then( response => {
-            console.log(response)
-            console.log("////////// getting all NOW PLAYING movies")
-            res.json(response)
+            res.json(response.data)
+        }).catch( error => console.log(error))
+    }
+
+    getUpcomingMovies(req, res, next){
+        const homeService = new HomeService()
+        return homeService.getUpcomingMovies()
+        .then( response => {
+            res.json(response.data)
+        }).catch( error => console.log(error))
+    }
+
+    getHeroImage(req, res, next){
+        const homeService = new HomeService()
+        return homeService.getHeroImage(req.params.id)
+        .then( response => {
+            res.json(response.data)
         }).catch( error => console.log(error))
     }
 }
