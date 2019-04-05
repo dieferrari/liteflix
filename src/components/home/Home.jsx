@@ -4,11 +4,6 @@ import Header from './Header';
 import MainInfo from './MainInfo'; 
 import Carousel from './Carousel';
 
-import NOW_PLAYING_MOVIES from '../../../seed/now_playing';
-import TOP_RATED_MOVIES from '../../../seed/top_rated';
-import POPULAR_MOVIES from '../../../seed/popular';
-import DRAMA_MOVIES from '../../../seed/drama';
-
 import config from '../../../config/config';
 
 class Home extends Component {
