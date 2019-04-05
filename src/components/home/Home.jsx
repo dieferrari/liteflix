@@ -6,11 +6,7 @@ import MainInfo from './MainInfo';
 import Carousel from './Carousel';
 import Modal from './Modal';
 
-import NOW_PLAYING_MOVIES from '../../../seed/now_playing';
-import UPCOMING_MOVIES from '../../../seed/upcoming';
-import TOP_RATED_MOVIES from '../../../seed/top_rated';
-import POPULAR_MOVIES from '../../../seed/popular';
-import DRAMA_MOVIES from '../../../seed/drama';
+import config from '../../../config/config';
 
 class Home extends Component {
     constructor(props) {
@@ -21,6 +17,7 @@ class Home extends Component {
 			topRatedMovies: [],
 			popularMovies: [],
 			dramaMovies: [],
+			newestMovie: {},
 			mainCoverUrl: '',
 			showModal: false,
         };
@@ -31,21 +28,51 @@ class Home extends Component {
 	}
 	
 	getStartingData() {
+		Promise.all([this.fetchMovies("now_playing"), this.fetchMovies("upcoming"), this.fetchMovies("top_rated"), this.fetchMovies("popular"), this.fetchMovies("drama")]).then( moviesData => {
+			let newestMovieIndex = 0;
 
-		this.setState({
-			nowPlayingMovies: NOW_PLAYING_MOVIES.results,
-			upcomingMovies: UPCOMING_MOVIES.results,
-			topRatedMovies: TOP_RATED_MOVIES.results,
-			popularMovies: POPULAR_MOVIES.results,
-			dramaMovies: DRAMA_MOVIES.results,
-			mainCoverUrl: this.getImageUrl(NOW_PLAYING_MOVIES.results[0]),
+			moviesData[0].forEach( (movie, index) => { // finding the newst movie in Now Playing category
+				if (movie.release_date > moviesData[0][newestMovieIndex].release_date) newestMovieIndex = index
+			});
+			
+			this.fetchHero(moviesData[0][newestMovieIndex].id)
+			.then( heroImages => {
+				this.setState({
+					mainCoverUrl: this.getImageUrl(heroImages[0], "file")
+				})
+			})
+
+			this.setState({
+				nowPlayingMovies: moviesData[0],
+				upcomingMovies: moviesData[1],
+				topRatedMovies: moviesData[2],
+				popularMovies: moviesData[3],
+				dramaMovies: moviesData[4],
+				newestMovie: moviesData[0][newestMovieIndex]
+			})
 		})
+
 	}
 
-	// fetchNowPlayingMovies(){
-	// 	fetch('https://localhost:3001/api/movies/now_playing')
-	// 	.then(response => response.json())
-	// }
+	async fetchMovies(category){
+		try {
+			const response = await fetch(`${config.api_root}${category}`)
+			const json = await response.json()
+			return json.results
+		} catch (err) {
+			console.log(err);
+		}
+	}
+
+	async fetchHero(movie_id){
+		try {
+			const response = await fetch(`${config.api_root}${movie_id}/images`)
+			const json = await response.json()
+			return json.backdrops
+		} catch (err) {
+			console.log(err);
+		}
+	}
 
 	getImageUrl(movie, type='backdrop', size= 'original') {
 		const base_url = 'https://image.tmdb.org/t/p/';
@@ -67,7 +94,7 @@ class Home extends Component {
 			<div className="app-container">
 				<div className="main-container" style={{ backgroundImage: `url(${this.state.mainCoverUrl})` }}>
 					<Header openModalHandler={this.openModalHandler.bind(this)}/>
-					<MainInfo mainMovieInfo={this.state.nowPlayingMovies[0]}/>
+					<MainInfo mainMovieInfo={this.state.newestMovie}/>
 					<Modal
 						showModal={this.state.showModal}
 						closeModalHandler={this.closeModalHandler.bind(this)}
