@@ -29,7 +29,7 @@ class Home extends Component {
 	}
 	
 	getStartingData() {
-		Promise.all([this.fetchMovies("now_playing"), this.fetchMovies("upcoming")]).then( moviesData => {
+		Promise.all([this.fetchMovies("now_playing"), this.fetchMovies("upcoming"), this.fetchMovies("top_rated"), this.fetchMovies("popular"), this.fetchMovies("drama")]).then( moviesData => {
 			this.fetchHero(moviesData[0][0].id)
 			.then( heroImages => {
 				this.setState({
@@ -40,9 +40,9 @@ class Home extends Component {
 			this.setState({
 				nowPlayingMovies: moviesData[0],
 				upcomingMovies: moviesData[1],
-				topRatedMovies: TOP_RATED_MOVIES.results,
-				popularMovies: POPULAR_MOVIES.results,
-				dramaMovies: DRAMA_MOVIES.results,
+				topRatedMovies: moviesData[2],
+				popularMovies: moviesData[3],
+				dramaMovies: moviesData[4],
 			})
 		})
 
