@@ -15,6 +15,7 @@ class Home extends Component {
 			topRatedMovies: [],
 			popularMovies: [],
 			dramaMovies: [],
+			newestMovie: {},
 			mainCoverUrl: ''
         };
     }
@@ -25,7 +26,14 @@ class Home extends Component {
 	
 	getStartingData() {
 		Promise.all([this.fetchMovies("now_playing"), this.fetchMovies("upcoming"), this.fetchMovies("top_rated"), this.fetchMovies("popular"), this.fetchMovies("drama")]).then( moviesData => {
-			this.fetchHero(moviesData[0][0].id)
+			let newestMovieIndex = 0;
+
+			moviesData[0].forEach( (movie, index) => {
+				console.log("newest: "+ newestMovieIndex + " " + "release date: " + movie.release_date + " " + "movie: " + movie.title)
+				if (movie.release_date > moviesData[0][newestMovieIndex].release_date) newestMovieIndex = index
+			});
+			
+			this.fetchHero(moviesData[0][newestMovieIndex].id)
 			.then( heroImages => {
 				this.setState({
 					mainCoverUrl: this.getImageUrl(heroImages[0], "file")
@@ -38,6 +46,7 @@ class Home extends Component {
 				topRatedMovies: moviesData[2],
 				popularMovies: moviesData[3],
 				dramaMovies: moviesData[4],
+				newestMovie: moviesData[0][newestMovieIndex]
 			})
 		})
 
@@ -47,7 +56,6 @@ class Home extends Component {
 		try {
 			const response = await fetch(`${config.api_root}${category}`)
 			const json = await response.json()
-			console.log(json)
 			return json.results
 		} catch (err) {
 			console.log(err);
@@ -58,7 +66,6 @@ class Home extends Component {
 		try {
 			const response = await fetch(`${config.api_root}${movie_id}/images`)
 			const json = await response.json()
-			console.log(json)
 			return json.backdrops
 		} catch (err) {
 			console.log(err);
@@ -77,7 +84,7 @@ class Home extends Component {
 			<div className="app-container">
 				<div className="main-container" style={{ backgroundImage: `url(${this.state.mainCoverUrl})` }}>
 					<Header/>
-					<MainInfo mainMovieInfo={this.state.nowPlayingMovies[0]}/>
+					<MainInfo mainMovieInfo={this.state.newestMovie}/>
 				</div>
 				<Carousel
 					sectionTitle={"Próximamente"}
