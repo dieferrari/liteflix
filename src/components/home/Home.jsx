@@ -28,8 +28,7 @@ class Home extends Component {
 		Promise.all([this.fetchMovies("now_playing"), this.fetchMovies("upcoming"), this.fetchMovies("top_rated"), this.fetchMovies("popular"), this.fetchMovies("drama")]).then( moviesData => {
 			let newestMovieIndex = 0;
 
-			moviesData[0].forEach( (movie, index) => {
-				console.log("newest: "+ newestMovieIndex + " " + "release date: " + movie.release_date + " " + "movie: " + movie.title)
+			moviesData[0].forEach( (movie, index) => { // finding the newst movie in Now Playing category
 				if (movie.release_date > moviesData[0][newestMovieIndex].release_date) newestMovieIndex = index
 			});
 			
