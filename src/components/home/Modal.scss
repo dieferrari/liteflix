@@ -1,16 +1,23 @@
 $primaryFont: 'Montserrat';
+$formBlue: #0076FF;
+$formGrey: #9B9B9B;
+$inputLightGrey: #CCCCCC;
+$submitButton: #DEDEDE;
+$loadingContainerBackground: #F3F3F3;
 
 .modal-file-drop {
-    margin: 30px 35px;
+    margin: 15px 0px 30px;
     font-family: Montserrat;
-    font-size: 14px;
+    font-size: 16px;
     line-height: 19px;
-    border: 1px dashed #9B9B9B;
+    border: 1px dashed $formGrey;
     box-sizing: border-box;
     border-radius: 10px;
     padding: 41px 100px 41px 100px;
     white-space: nowrap;
-    display: inline-flex;
+    color: $formGrey;
+    display: flex;
+    justify-content: center;
 
     img {
         width: 20px;
@@ -18,7 +25,101 @@ $primaryFont: 'Montserrat';
     }
 
     span {
-        color: #0076FF;
+        color: $formBlue;
         font-weight: bold;
+        margin-right: 5px;
     }
+
+}
+
+.modal-form {
+    display: flex;
+    font-family: $primaryFont;
+    justify-content: space-between;
+
+    label {
+        font-size: 10px;
+        font-weight: 600;
+        letter-spacing: 5px;
+        line-height: 15px;
+        color: $formGrey;
+        text-transform: uppercase;
+        width: 45%;
+    }
+
+    input, select {
+        display: flex;
+        width: 100%;
+        border: none;
+        background: none;
+        border-bottom: 1px solid $inputLightGrey;
+        height: 19px;
+        color: #000000;
+        font-size: 16px;
+        line-height: 19px;
+        padding: 10px 0px 5px 0px;
+
+        &:focus {
+            outline: none;
+            border-bottom-color: $formBlue;
+        }
+
+        &::placeholder, select {
+            color: $inputLightGrey;
+        }
+    }
+
+    select {
+        border: none;
+        margin: 10px 0px 5px 0px;
+        appearance: none;
+        padding: 0;
+        color: $inputLightGrey;
+    }
+
+    .modal-label-select {
+        border-bottom: 1px solid $inputLightGrey;
+    }
+
+    .modal-input-filled {
+        border-bottom: 1px solid #000000;
+    }
+
+    .modal-select-selected {
+        color: #000000;
+    }
+
+    .modal-label-selected {
+        border-bottom: 1px solid #000000;
+    }
+
+}
+
+.modal-submit-button {
+    margin: 43px 190px 0px;
+    background-color: $submitButton;
+    border-radius: 35px;
+    height: 70px;
+    width: 350px;
+    border: none;
+    font-family: $primaryFont;
+    color: #FFFFFF;
+    font-size: 16px;
+    line-height: 19px;
+
+    &:hover {
+        background-color: #000000;
+    }
+}
+
+.modal-loading-container {
+    margin: 15px 0px 30px;
+    font-family: Montserrat;
+    box-sizing: border-box;
+    border-radius: 10px;
+    padding: 41px 100px 41px 100px;
+    display: flex;
+    justify-content: center;
+    background-color: $loadingContainerBackground;
+    height: 22px;
 }
