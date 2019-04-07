@@ -1,0 +1,53 @@
+$footerLetterColor: #999999;
+$primaryFont: "Montserrat";
+
+
+.footer-container {
+    padding: 0px 0px 129px 164px;
+
+    .footer-social-container {
+        display: flex;
+        align-items: center;
+    }
+
+    img {
+        margin-right: 24px;
+    }
+
+    a {
+        color: $footerLetterColor;
+        font-style: normal;
+        font-weight: normal;
+        font-size: 14px;
+        line-height: 16px;
+        text-decoration: none;
+        align-self: center;
+        font-family: $primaryFont;
+        padding-bottom: 13px;
+    
+        &:hover {
+            color: #FFFFFF;
+        }
+    }
+
+    .footer-sections-container {
+        display: flex;
+        margin-top: 22px;
+
+        .footer-section {
+            display: grid;
+            margin-right: 164px;
+            align-content: baseline;
+        }
+    }
+
+    .footer-copyright {
+        color: $footerLetterColor;
+        font-style: normal;
+        font-weight: normal;
+        font-size: 11px;
+        line-height: 14px;
+        font-family: $primaryFont;
+        margin-top: 35px;
+    }
+}

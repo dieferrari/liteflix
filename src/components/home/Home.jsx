@@ -5,6 +5,7 @@ import Header from './Header';
 import MainInfo from './MainInfo'; 
 import Carousel from './Carousel';
 import Modal from './Modal';
+import Footer from './Footer';
 
 import config from '../../../config/config';
 
@@ -121,6 +122,7 @@ class Home extends Component {
 					data={this.state.dramaMovies}
 					getImageUrl={this.getImageUrl.bind(this)}
 				/>
+				<Footer/>
 			</div>
         )
     }
