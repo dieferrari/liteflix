@@ -88,6 +88,10 @@ $primaryFont: 'Montserrat';
                 margin-right: 160px;
             }
         }
+
+        &:focus {
+            outline: none;
+        }
     }
 
     .header-search-section {

@@ -21,7 +21,9 @@ class Modal extends Component {
                 labels: ["Acción", "Aventuras", "Ciencia Ficción", "Comedia", "Documentales"],
                 values: ["accion", "aventuras", "ciencia_ficcion", "comedia", "documentales"],
             },
-            isLoading: false
+            isLoading: false,
+            loadingPercentage: 0,
+            loadingError: false,
         }
     }
 
@@ -30,7 +32,37 @@ class Modal extends Component {
     }
 
     submitHandler() {
+        const self = this;
+        this.setState({ isLoading: true})
 
+        let interval = setInterval( function() { // simulating loader progress
+            if (self.state.loadingPercentage < 100 && self.state.loadingPercentage > 80) self.setState({ loadingPercentage: self.state.loadingPercentage + 100 - self.state.loadingPercentage })
+            if (self.state.loadingPercentage < 100) {
+                if ( Math.floor(Math.random() * 20) + 1 === 1) { // 0.05 probability of error on every loader progress
+                    clearInterval(interval)
+                    self.setState({ 
+                        loadingError: true,
+                        loadingPercentage: 100,
+                    })
+                } else self.setState({ loadingPercentage: self.state.loadingPercentage + Math.floor(Math.random() * 20) + 1, interval })
+            }
+            else clearInterval(interval)
+        }, 600)
+    }
+
+    cancelActionHandler() {
+        clearInterval(this.state.interval)
+        this.setState({
+            isLoading: false,
+            loadingPercentage: 0,
+        })
+    }
+
+    tryAgainActionHandler() {
+        this.setState({
+            loadingError: false,
+            loadingPercentage: 0,
+        })
     }
 
     render() {
@@ -46,8 +78,25 @@ class Modal extends Component {
                         root: classes.dialog
                     }}
                 >
-                    { this.state.isLoading ? <div className="modal-loading-container"></div>
-                        : <div className="modal-file-drop"><img src="../../../assets/clip_icon.svg" alt="Attachment icon"/><span>Agregar archivo </span> o arrastrarlo y soltarlo aquí</div> }
+                    { this.state.isLoading || this.state.loadingError ? 
+                        <div className="modal-loading-container">
+                            { this.state.loadingError ? <div className="modal-loading-status-error"><span>Error!</span> no se pudo cargar la película</div> 
+                                : this.state.loadingPercentage < 100 ? 
+                                    <div className="modal-loading-status">Cargando {this.state.loadingPercentage}%</div> 
+                                    :  <div className="modal-loading-status modal-loading-status-completed">{this.state.loadingPercentage}% Cargado</div> 
+                            }
+                            <div className="modal-loading-bar-container">
+                                <div className={ this.state.loadingError ? "modal-loading-bar modal-loading-bar-error" : "modal-loading-bar"} style={{ width: `${this.state.loadingPercentage}%` }}></div>
+                            </div>
+
+                            { this.state.loadingError ? <div className="modal-loading-action" onClick={this.tryAgainActionHandler.bind(this)}>Reintentar</div>
+                                : <div className="modal-loading-action" onClick={this.cancelActionHandler.bind(this)}>Cancelar</div>
+                            }
+
+                        </div>
+                        : <div className="modal-file-drop"><img src="../../../assets/clip_icon.svg" alt="Attachment icon"/><span>Agregar archivo </span> o arrastrarlo y soltarlo aquí</div> 
+                    }
+                    
                     <div className="modal-form">
                         <label>
                             Nombre de la película
@@ -80,7 +129,11 @@ class Modal extends Component {
 
                         </label>
                     </div>
-                        <button className="modal-submit-button" onClick={this.submitHandler}>Subir Película</button>
+                        <button 
+                            className={this.state.loadingPercentage === 100 && this.state.loadingError === false ? "modal-submit-button modal-submit-button-success" : "modal-submit-button"} 
+                            onClick={this.submitHandler.bind(this)}
+                            >Subir Película
+                        </button>
 
                 </DialogContent>
             </Dialog>

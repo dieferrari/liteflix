@@ -32,7 +32,7 @@ class Home extends Component {
 			let newestMovieIndex = 0;
 
 			moviesData[0].forEach( (movie, index) => { // finding the newst movie in Now Playing category
-				if (movie.release_date > moviesData[0][newestMovieIndex].release_date) newestMovieIndex = index
+				if (movie.release_date > moviesData[0][newestMovieIndex].release_date && !!movie.backdrop_path) newestMovieIndex = index
 			});
 			
 			this.fetchHero(moviesData[0][newestMovieIndex].id)
