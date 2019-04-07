@@ -7,7 +7,7 @@ import './Modal.scss'
 
 const styles = theme => ({
     dialog: {
-        padding: "0px 35px 27px 35px",
+        padding: "0px !important",
     },
 });
 
@@ -17,14 +17,12 @@ class Modal extends Component {
         this.state = {
             movie_name: "",
             category: "Seleccionar Categoría",
-            category_lists: {
-                labels: ["Acción", "Aventuras", "Ciencia Ficción", "Comedia", "Documentales"],
-                values: ["accion", "aventuras", "ciencia_ficcion", "comedia", "documentales"],
-            },
+            category_list: ["Acción", "Aventuras", "Ciencia Ficción", "Comedia", "Documentales"],
             isLoading: false,
             loadingPercentage: 0,
             loadingError: false,
             submitButtonIsActive: false,
+            uploadedSuccessfully: false,
         }
     }
 
@@ -69,7 +67,24 @@ class Modal extends Component {
     }
 
     submitHandler() {
-        console.log("SUBMIT!")
+        if (this.state.submitButtonIsActive) this.setState({ uploadedSuccessfully: true })
+    }
+
+    resetAndCloseModalHandler() {
+        this.props.closeModalHandler()
+        this.resetModal()
+    }
+
+    resetModal() {
+        this.setState({
+            movie_name: "",
+            category: "Seleccionar Categoría",
+            isLoading: false,
+            loadingPercentage: 0,
+            loadingError: false,
+            submitButtonIsActive: false,
+            uploadedSuccessfully: false,
+        })
     }
 
     render() {
@@ -84,64 +99,79 @@ class Modal extends Component {
                     classes={{
                         root: classes.dialog
                     }}
-                >
-                    { this.state.isLoading || this.state.loadingError ? 
-                        <div className="modal-loading-container">
-                            { this.state.loadingError ? <div className="modal-loading-status-error"><span>Error!</span> no se pudo cargar la película</div> 
-                                : this.state.loadingPercentage < 100 ? 
-                                    <div className="modal-loading-status">Cargando {this.state.loadingPercentage}%</div> 
-                                    :  <div className="modal-loading-status modal-loading-status-completed">{this.state.loadingPercentage}% Cargado</div> 
+                >   
+                    { this.state.uploadedSuccessfully ?
+                        <div className="modal-success-container">
+                            <img  onClick={this.resetAndCloseModalHandler.bind(this)} className="modal-close-icon" src="../../../assets/x_icon.svg" alt="Close icon"/>
+                            <img src="../../../assets/liteflix_logo.svg" alt="Liteflix logo"/> 
+                            <h3>Felicitaciones!</h3>
+                            <p><span>{this.state.movie_name}</span> fue correctamente subido a la categoría <span>{this.state.category_list[this.state.category]}</span></p>
+
+                            <button onClick={this.resetAndCloseModalHandler.bind(this)}>Cerrar</button>
+                        </div>
+
+                        : <div className="modal-content-container">
+                            <img onClick={this.resetAndCloseModalHandler.bind(this)} className="modal-close-icon" src="../../../assets/x_icon.svg" alt="Close icon"/>
+                            { this.state.isLoading || this.state.loadingError ? 
+                                <div className="modal-loading-container">
+                                    { this.state.loadingError ? <div className="modal-loading-status-error"><span>Error!</span> no se pudo cargar la película</div> 
+                                        : this.state.loadingPercentage < 100 ? 
+                                            <div className="modal-loading-status">Cargando {this.state.loadingPercentage}%</div> 
+                                            :  <div className="modal-loading-status modal-loading-status-completed">{this.state.loadingPercentage}% Cargado</div> 
+                                    }
+                                    <div className="modal-loading-bar-container">
+                                        <div className={ this.state.loadingError ? "modal-loading-bar modal-loading-bar-error" : "modal-loading-bar"} style={{ width: `${this.state.loadingPercentage}%` }}></div>
+                                    </div>
+
+                                    { this.state.loadingError ? <div className="modal-loading-action" onClick={this.tryAgainActionHandler.bind(this)}>Reintentar</div>
+                                        : <div className="modal-loading-action" onClick={this.cancelActionHandler.bind(this)}>Cancelar</div>
+                                    }
+
+                                </div>
+                                : <div className="modal-file-drop" onClick={this.uploadHandler.bind(this)}><img src="../../../assets/clip_icon.svg" alt="Attachment icon"/><span>Agregar archivo </span> o arrastrarlo y soltarlo aquí</div> 
                             }
-                            <div className="modal-loading-bar-container">
-                                <div className={ this.state.loadingError ? "modal-loading-bar modal-loading-bar-error" : "modal-loading-bar"} style={{ width: `${this.state.loadingPercentage}%` }}></div>
+                            
+                            <div className="modal-form">
+                                <label>
+                                    Nombre de la película
+                                    <input 
+                                        type="text" 
+                                        name="movie_name" 
+                                        placeholder="Escribir nombre" 
+                                        value={this.state.movie_name} 
+                                        onChange={this.inputChangeHandler.bind(this)}
+                                        className={ this.state.movie_name !== "" ? "modal-input-filled" : "" }
+                                    />
+                                </label>
+                                <label
+                                    className={ this.state.category !== "Seleccionar Categoría" ? "modal-label-selected modal-label-select" : "modal-label-select" }
+                                >
+                                    Categoría
+                                    <select
+                                        name="category" 
+                                        value={this.state.category} 
+                                        onChange={this.inputChangeHandler.bind(this)}
+                                        className={ this.state.category !== "Seleccionar Categoría" ? "modal-select-selected" : ""}
+                                    >
+                                        <option disabled defaultValue>Seleccionar Categoría</option>
+                                        { this.state.category_list.length > 0 ? this.state.category_list.map( (category, index) => (
+                                            <option value={index} key={category}>{this.state.category_list[index]}</option>
+                                            )) 
+                                        : null }
+                                        
+                                    </select>
+
+                                </label>
                             </div>
 
-                            { this.state.loadingError ? <div className="modal-loading-action" onClick={this.tryAgainActionHandler.bind(this)}>Reintentar</div>
-                                : <div className="modal-loading-action" onClick={this.cancelActionHandler.bind(this)}>Cancelar</div>
-                            }
+                            <button 
+                                className={this.state.submitButtonIsActive ? "modal-submit-button modal-submit-button-success" : "modal-submit-button"} 
+                                onClick={this.submitHandler.bind(this)}
+                                >Subir Película
+                            </button>
 
                         </div>
-                        : <div className="modal-file-drop" onClick={this.uploadHandler.bind(this)}><img src="../../../assets/clip_icon.svg" alt="Attachment icon"/><span>Agregar archivo </span> o arrastrarlo y soltarlo aquí</div> 
-                    }
-                    
-                    <div className="modal-form">
-                        <label>
-                            Nombre de la película
-                            <input 
-                                type="text" 
-                                name="movie_name" 
-                                placeholder="Escribir nombre" 
-                                value={this.state.movie_name} 
-                                onChange={this.inputChangeHandler.bind(this)}
-                                className={ this.state.movie_name !== "" ? "modal-input-filled" : "" }
-                            />
-                        </label>
-                        <label
-                            className={ this.state.category !== "Seleccionar Categoría" ? "modal-label-selected modal-label-select" : "modal-label-select" }
-                        >
-                            Categoría
-                            <select
-                                name="category" 
-                                value={this.state.category} 
-                                onChange={this.inputChangeHandler.bind(this)}
-                                className={ this.state.category !== "Seleccionar Categoría" ? "modal-select-selected" : ""}
-                            >
-                                <option disabled defaultValue>Seleccionar Categoría</option>
-                                { this.state.category_lists.values.length > 0 ? this.state.category_lists.values.map( (category_value, index) => (
-                                    <option value={category_value} key={category_value}>{this.state.category_lists.labels[index]}</option>
-                                    )) 
-                                : null }
-                                
-                            </select>
-
-                        </label>
-                    </div>
-                        <button 
-                            className={this.state.submitButtonIsActive ? "modal-submit-button modal-submit-button-success" : "modal-submit-button"} 
-                            onClick={this.submitHandler.bind(this)}
-                            >Subir Película
-                        </button>
-
+                    }                    
                 </DialogContent>
             </Dialog>
         )

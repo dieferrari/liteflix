@@ -4,11 +4,24 @@ $formGrey: #9B9B9B;
 $inputLightGrey: #CCCCCC;
 $submitButton: #DEDEDE;
 $loadingContainerBackground: #F3F3F3;
-$loadingBarColor: #7ED321;
+$successGreen: #7ED321;
 $loadingActionButton: #4A4A4A;
 $errorColor: #FF0000;
+$successLetterColor: #FFFFFF;
+
 
 $loadingContainerWidth: 600px; 
+
+.modal-content-container {
+    padding: 0px 35px 27px 35px;
+
+    .modal-close-icon {
+        position: relative;
+        left: 742px;
+        top: 9px;
+        cursor: pointer;
+    }
+}
 
 .modal-file-drop {
     margin: 15px 0px 30px;
@@ -141,7 +154,7 @@ $loadingContainerWidth: 600px;
 
         .modal-loading-bar {
             height: 20px;
-            background-color: $loadingBarColor;
+            background-color: $successGreen;
             z-index: 1;
             border-radius: 30px;
         }
@@ -179,3 +192,53 @@ $loadingContainerWidth: 600px;
 }
 
 
+//---------------- SUCCESS MESSAGE
+
+.modal-success-container {
+    background-color: $successGreen;
+    width: 730px;
+    padding: 27px 35px;
+    font-family: $primaryFont;
+    color: $successLetterColor;
+
+    h3 {
+        font-size: 32px;
+        line-height: 29px;
+        font-weight: bold;
+    }
+
+    p {
+        font-size: 24px;
+        width: 536px;
+        margin: 45px 0px 51px 0px;
+
+        span {
+            font-weight: bold;
+        }
+    }
+
+    button {
+        margin: 0px;
+        background-color: #000000;
+        font-family: $primaryFont;
+        border-radius: 35px;
+        height: 70px;
+        width: 192px;
+        border: none;
+        color: #FFFFFF;
+        font-size: 16px;
+        line-height: 19px;
+        cursor: pointer;
+
+        &:focus {
+            outline: none;
+        }
+    }
+
+    .modal-close-icon {
+        position: relative;
+        left: 742px;
+        bottom: 30px;
+        cursor: pointer;
+    }
+}
