@@ -160,6 +160,7 @@ $loadingContainerWidth: 600px;
         color: $loadingActionButton;
         text-transform: uppercase;
         cursor: pointer;
+        width: fit-content;
     }
     
     .modal-loading-status-completed, .modal-loading-status-error span {

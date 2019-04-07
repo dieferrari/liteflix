@@ -24,6 +24,7 @@ class Modal extends Component {
             isLoading: false,
             loadingPercentage: 0,
             loadingError: false,
+            submitButtonIsActive: false,
         }
     }
 
@@ -31,12 +32,12 @@ class Modal extends Component {
         this.setState({[event.target.name]: event.target.value})
     }
 
-    submitHandler() {
+    uploadHandler() {
         const self = this;
         this.setState({ isLoading: true})
 
         let interval = setInterval( function() { // simulating loader progress
-            if (self.state.loadingPercentage < 100 && self.state.loadingPercentage > 80) self.setState({ loadingPercentage: self.state.loadingPercentage + 100 - self.state.loadingPercentage })
+            if (self.state.loadingPercentage < 100 && self.state.loadingPercentage > 80) self.setState({ loadingPercentage: self.state.loadingPercentage + 100 - self.state.loadingPercentage, submitButtonIsActive: true })
             if (self.state.loadingPercentage < 100) {
                 if ( Math.floor(Math.random() * 20) + 1 === 1) { // 0.05 probability of error on every loader progress
                     clearInterval(interval)
@@ -55,6 +56,7 @@ class Modal extends Component {
         this.setState({
             isLoading: false,
             loadingPercentage: 0,
+            submitButtonIsActive: false,
         })
     }
 
@@ -63,6 +65,11 @@ class Modal extends Component {
             loadingError: false,
             loadingPercentage: 0,
         })
+        this.uploadHandler()
+    }
+
+    submitHandler() {
+        console.log("SUBMIT!")
     }
 
     render() {
@@ -94,7 +101,7 @@ class Modal extends Component {
                             }
 
                         </div>
-                        : <div className="modal-file-drop"><img src="../../../assets/clip_icon.svg" alt="Attachment icon"/><span>Agregar archivo </span> o arrastrarlo y soltarlo aquí</div> 
+                        : <div className="modal-file-drop" onClick={this.uploadHandler.bind(this)}><img src="../../../assets/clip_icon.svg" alt="Attachment icon"/><span>Agregar archivo </span> o arrastrarlo y soltarlo aquí</div> 
                     }
                     
                     <div className="modal-form">
@@ -130,7 +137,7 @@ class Modal extends Component {
                         </label>
                     </div>
                         <button 
-                            className={this.state.loadingPercentage === 100 && this.state.loadingError === false ? "modal-submit-button modal-submit-button-success" : "modal-submit-button"} 
+                            className={this.state.submitButtonIsActive ? "modal-submit-button modal-submit-button-success" : "modal-submit-button"} 
                             onClick={this.submitHandler.bind(this)}
                             >Subir Película
                         </button>
