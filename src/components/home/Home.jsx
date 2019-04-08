@@ -93,7 +93,7 @@ class Home extends Component {
     render() {
         return (
 			<div className="app-container">
-				<div className="main-container" style={{ backgroundImage: `url(${this.state.mainCoverUrl})` }}>
+				<div className="main-container" style={{ backgroundImage: `url(${this.state.mainCoverUrl})`}}>
 					<Header openModalHandler={this.openModalHandler.bind(this)}/>
 					<MainInfo mainMovieInfo={this.state.newestMovie}/>
 					<Modal

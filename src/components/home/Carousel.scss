@@ -14,7 +14,6 @@ $growFactorBig: 1.15;
 $moveLeftBig: -($tileWidthBig * ($growFactorBig - 1) / 2);
 $moveRightBig: $tileWidthBig * ($growFactorBig - 1);
 
-///////// VER COMO HACER TODO IGUAL TANTO PARA LOS TILES NORMALES COMO PARA LOS BIG PERO QUE SOLO CAMBIE EL CONTENIDO DE SUS VARIABLES (CON MIXINS O FUNCIONES???)
   
 .row {
     overflow: scroll;
@@ -137,7 +136,7 @@ $moveRightBig: $tileWidthBig * ($growFactorBig - 1);
     max-width: calc(1440px - 164px);
     position: relative;
     left: 164px;
-    bottom: 100px; //--------------------> MODIFICAR SEGÚN VH ?
+    bottom: 100px;
     margin-bottom: 80px;
     overflow-x: scroll;
 
