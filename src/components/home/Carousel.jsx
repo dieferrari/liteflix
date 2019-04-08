@@ -11,8 +11,10 @@ class Carousel extends PureComponent {
         })
         
         return (
+            <div>
+                <h4 className={ liteflixPopular ? "liteflix-popular-title": "liteflix-popular-title"}>{sectionTitle}</h4>
             <div className="carousel-container">
-                <h4 className={ liteflixPopular ? "liteflix-popular-title": ""}>{sectionTitle}</h4>
+                
 
                 <div className="row">
                     <div className={ liteflixPopular ? "row-inner row-inner-big" : "row-inner" }>
@@ -22,11 +24,11 @@ class Carousel extends PureComponent {
                             data.map( (movie, index) => (
                                 <div className={ liteflixPopular ? "tile tile-big" : "tile" } key={movie.id}>
                                     <div className="tile-media">
-                                        <img className={ liteflixPopular ? "tile-img tile-img-big" : "tile-img" } src={moviesImgUrl[index]} alt="" loading="lazy" />
+                                        <img className={ liteflixPopular ? "tile-img tile-img-big" : "tile-img" } src={moviesImgUrl[index]} alt="" />
                                     </div>
                                     <div className="tile-details">
                                         <div className={ liteflixPopular ? "tile-description tile-description-big" : "tile-description" }>
-                                            <img className="tile-play-icon" src="../../../assets/play_circle_icon.svg" alt="Play icon" loading="lazy" />
+                                            <img className="tile-play-icon" src="../../../assets/play_circle_icon.svg" alt="Play icon" />
                                             <div className="tile-description-title">{movie.title}</div>
                                             <div>98% de coincidencia
                                                 <div className="tile-adult-badge">+16</div>
@@ -35,8 +37,8 @@ class Carousel extends PureComponent {
                                             <div>Suspenso</div>          
                                         </div>
                                         <div className={ liteflixPopular ? "tile-description-interactions tile-description-interactions-big": "tile-description-interactions" }>
-                                            <img src="../../../assets/like_icon.svg" alt="Like icon" loading="lazy" />
-                                            <img src="../../../assets/plus_circle_icon.svg" alt="Add icon" loading="lazy"/>
+                                            <img src="../../../assets/like_icon.svg" alt="Like icon" />
+                                            <img src="../../../assets/plus_circle_icon.svg" alt="Add icon" />
                                         </div>
                                         <img className={ liteflixPopular ? "tile-arrow-down tile-arrow-down-big" : "tile-arrow-down" } src="../../../assets/carousel_arrow_icon.svg" alt="Arrow icon"/>
                                         
@@ -50,6 +52,7 @@ class Carousel extends PureComponent {
                     </div>
                 </div>
 
+            </div>
             </div>
         )
     }
